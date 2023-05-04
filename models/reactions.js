@@ -1,11 +1,11 @@
-const { Schema, model, Mongoose } = require('mongoose');
+const { Schema, model, } = require('mongoose');
 
-// Schema to create User model
+// Schema to create Reactions model
 const reactionsSchema = new Schema(
     {
       reactionID: {
-        type: Mongoose.ObjectId,
-        default: new Mongoose.ObjectId,
+        type: Schema.Types.ObjectId,
+        default: Schema.Types.ObjectId,
       },
       reactionBody:{
         type: String,
@@ -34,11 +34,11 @@ const reactionsSchema = new Schema(
     }
   );
 
-userSchema
-    .virtual("freindCount")
-    .get(function () {
-        return this.friends.length;
-    });
+// userSchema
+//     .virtual("freindCount")
+//     .get(function () {
+//         return this.friends.length;
+//     });
 
 // Initialize our User model
 const reactions = model('reactions', reactionsSchema);
