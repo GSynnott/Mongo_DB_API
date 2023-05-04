@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
-const { Reaction } = require('./reactions');
+//const { Reaction } = require('./reactions');
 
+// Schema to create reactions model
 const reactionsSchema = new Schema(
   {
     reactionID: {
@@ -24,17 +25,9 @@ const reactionsSchema = new Schema(
       get: v => Date.toLocaleDateString("en-US"),
     },
   },
-  {
-    // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
-    // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
-    // toJSON: {
-    //   virtuals: true,
-    // },
-    // id: false,
-  }
 );
 
-// Schema to create User model
+// Schema to create thoughts model
 const thoughtsSchema = new Schema(
     {
       thoughtText: {
@@ -56,8 +49,7 @@ const thoughtsSchema = new Schema(
       reactions: [reactionsSchema],
     },
     {
-      // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
-      // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
+      // Set up the model to allow virtuals
       toJSON: {
         virtuals: true,
       },
@@ -65,6 +57,7 @@ const thoughtsSchema = new Schema(
     }
   );
 
+// Create a virtual to count the number of items in the reactions array
 thoughtsSchema
     .virtual("reactionsCount")
     .get(function () {
